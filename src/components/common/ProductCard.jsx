@@ -15,7 +15,8 @@ const ProductCard = ({ product, onClick }) => {
           </span>
         </div>
       )}
-      ]{" "}
+
+      {/* Image container with colored background */}
       <div className="pt-6 px-6 pb-2 bg-gradient-to-b from-emerald-50/50 to-white">
         <img
           src={product.image}
@@ -23,6 +24,7 @@ const ProductCard = ({ product, onClick }) => {
           className="h-40 w-full object-contain mx-auto transition-transform duration-300 group-hover:scale-105"
         />
       </div>
+
       {/* Content */}
       <div className="p-4">
         <div className="flex justify-between items-start">
