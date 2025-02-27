@@ -1,177 +1,116 @@
-// src/pages/ProductDetailPage.jsx
 import React from "react";
-import { formatPrice, calculateDiscountPercentage } from "../utils/formatters";
 import { useCart } from "../context/CartContext";
+import { ArrowLeft, Star, Plus, Minus } from "lucide-react";
+import { useState } from "react";
 
 const ProductDetailPage = ({ product, onClose }) => {
+  const [quantity, setQuantity] = useState(1);
   const { addToCart } = useCart();
 
   const handleAddToCart = () => {
-    addToCart(product);
+    addToCart(product, quantity);
     onClose();
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-white">
-      <header className="bg-white p-4 flex items-center justify-between">
+    <div className="flex flex-col min-h-screen bg-gradient-to-b from-emerald-50 to-white">
+      {/* Header */}
+      <div className="relative p-4 flex justify-between items-center">
         <button
-          className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-600"
           onClick={onClose}
+          className="p-2 rounded-full bg-white/90 shadow-sm hover:bg-white transition-colors"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M15 19l-7-7 7-7"
-            />
-          </svg>
+          <ArrowLeft size={20} className="text-emerald-800" />
         </button>
-        <h1 className="text-lg font-semibold text-emerald-800">Fruity</h1>
-        <div className="w-8 h-8 rounded-full overflow-hidden bg-gray-200">
+        <h1 className="font-bold text-emerald-800 text-xl">Fruity</h1>
+        <div className="w-10"></div> {/* Spacer for alignment */}
+      </div>
+
+      {/* Product Image */}
+      <div className="relative mx-4 rounded-3xl bg-emerald-50/80 p-8 shadow-sm">
+        <div className="flex justify-center">
           <img
-            src="/api/placeholder/32/32"
-            alt="User"
-            className="w-full h-full object-cover"
+            src={product.image}
+            alt={product.name}
+            className="h-64 object-contain max-w-full"
           />
         </div>
-      </header>
+      </div>
 
-      <div className="flex-1 p-4">
-        <div className="mx-auto max-w-xs">
-          {/* Discount Tag */}
-          {product.discount && (
-            <div className="mb-2">
-              <div className="inline-block px-3 py-1 rounded-lg bg-red-50 text-red-500 font-medium text-sm">
-                {product.discount} OFF
-              </div>
-            </div>
-          )}
-
-          {/* Product Image */}
-          <div className="bg-emerald-50 rounded-lg p-6 flex items-center justify-center mb-6">
-            <img
-              src={product.image}
-              alt={product.name}
-              className="h-48 object-contain"
-            />
+      {/* Product Details */}
+      <div className="flex-1 px-6 pt-6">
+        <div className="flex justify-between items-start">
+          <h2 className="text-2xl font-bold text-gray-800">{product.name}</h2>
+          <div className="flex items-center bg-emerald-50 px-3 py-1 rounded-full">
+            <Star size={16} className="text-yellow-400 fill-yellow-400" />
+            <span className="ml-1 font-medium text-gray-700">
+              {product.rating}
+            </span>
           </div>
+        </div>
 
-          {/* Product Details */}
-          <div>
-            <div className="flex justify-between items-start mb-2">
-              <h2 className="text-xl font-bold text-gray-800">
-                {product.name}
-              </h2>
-              <div className="flex items-center bg-emerald-50 px-2 py-1 rounded">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-4 w-4 text-yellow-400"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                </svg>
-                <span className="ml-1 text-sm font-medium text-gray-700">
-                  {product.rating}
-                </span>
-              </div>
-            </div>
+        <p className="mt-2 text-gray-600">{product.description}</p>
 
-            <p className="text-gray-600 text-sm mb-4">{product.description}</p>
+        {/* Price Section */}
+        <div className="mt-6">
+          <p className="text-sm text-gray-500">Price</p>
+          <div className="flex items-end">
+            <span className="text-3xl font-bold text-gray-800">
+              ${product.price}
+            </span>
+            {product.originalPrice && (
+              <span className="ml-2 text-sm line-through text-gray-400">
+                P{product.originalPrice}
+              </span>
+            )}
+          </div>
+        </div>
 
-            {/* Price */}
-            <div className="mb-6">
-              {product.discount ? (
-                <div className="flex items-baseline">
-                  <div className="mr-3">
-                    <div className="text-xs text-gray-500 mb-1">Price</div>
-                    <div className="flex items-baseline">
-                      <span className="font-bold text-2xl text-gray-800">
-                        {formatPrice(product.price)}
-                      </span>
-                      <span className="ml-2 text-sm text-gray-500 line-through">
-                        {formatPrice(product.originalPrice)}
-                      </span>
-                    </div>
-                  </div>
-                  <div>
-                    <div className="text-xs text-gray-500 mb-1">Savings</div>
-                    <div className="text-sm font-medium text-emerald-600">
-                      {calculateDiscountPercentage(
-                        product.originalPrice,
-                        product.price
-                      )}
-                      %
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                <div>
-                  <div className="text-xs text-gray-500 mb-1">Price</div>
-                  <span className="font-bold text-2xl text-gray-800">
-                    {formatPrice(product.price)}
-                  </span>
-                </div>
-              )}
-            </div>
-
-            {/* Reviews */}
-            <div className="mb-6">
-              <h3 className="font-semibold text-gray-700 text-sm mb-2">
-                Reviews
-              </h3>
-              <div className="flex space-x-2">
-                <div className="w-6 h-6 rounded-full bg-emerald-200 overflow-hidden">
-                  <img
-                    src="/api/placeholder/24/24"
-                    alt="Reviewer"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="w-6 h-6 rounded-full bg-emerald-300 overflow-hidden">
-                  <img
-                    src="/api/placeholder/24/24"
-                    alt="Reviewer"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="w-6 h-6 rounded-full bg-emerald-400 overflow-hidden">
-                  <img
-                    src="/api/placeholder/24/24"
-                    alt="Reviewer"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="w-6 h-6 rounded-full bg-emerald-500 overflow-hidden">
-                  <img
-                    src="/api/placeholder/24/24"
-                    alt="Reviewer"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center text-xs text-gray-600 font-medium">
-                  +5
-                </div>
-              </div>
+        {/* Reviews Section */}
+        <div className="mt-8">
+          <h3 className="font-semibold text-gray-800 mb-3">Reviews</h3>
+          <div className="flex">
+            {[1, 2, 3, 4].map((i) => (
+              <div
+                key={i}
+                className="w-10 h-10 rounded-full bg-gray-200 -ml-2 first:ml-0 border-2 border-white"
+              ></div>
+            ))}
+            <div className="w-10 h-10 rounded-full bg-emerald-100 -ml-2 border-2 border-white flex items-center justify-center text-sm font-medium text-emerald-800">
+              +5
             </div>
           </div>
         </div>
       </div>
 
-      <div className="p-4 bg-white shadow-md">
-        <button
-          className="w-full py-3 rounded-xl bg-emerald-600 text-white font-medium"
-          onClick={handleAddToCart}
-        >
-          Order Now
-        </button>
+      {/* Bottom Actions */}
+      <div className="sticky bottom-0 p-4 bg-white border-t border-gray-100 shadow-lg">
+        <div className="flex items-center justify-between gap-4">
+          <div className="flex items-center bg-gray-100 rounded-full">
+            <button
+              onClick={() => setQuantity(Math.max(1, quantity - 1))}
+              className="p-2 rounded-full hover:bg-gray-200 transition-colors"
+              aria-label="Decrease quantity"
+            >
+              <Minus size={18} className="text-gray-700" />
+            </button>
+            <span className="px-4 font-medium">{quantity}</span>
+            <button
+              onClick={() => setQuantity(quantity + 1)}
+              className="p-2 rounded-full hover:bg-gray-200 transition-colors"
+              aria-label="Increase quantity"
+            >
+              <Plus size={18} className="text-gray-700" />
+            </button>
+          </div>
+
+          <button
+            onClick={handleAddToCart}
+            className="flex-1 bg-emerald-600 text-white py-3 px-6 rounded-full font-semibold hover:bg-emerald-700 transition-all shadow-md hover:shadow-lg active:scale-98"
+          >
+            Order Now
+          </button>
+        </div>
       </div>
     </div>
   );

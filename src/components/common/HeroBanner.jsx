@@ -1,6 +1,5 @@
 // src/components/common/HeroBanner.jsx
 import React from "react";
-import CoconutJuice from "../../assets/coconut-juice.png";
 
 const HeroBanner = () => {
   return (
@@ -24,13 +23,11 @@ const HeroBanner = () => {
             </h2>
           </div>
           <div className="w-1/3 flex items-center justify-center">
-            <div className="w-24 h-24 relative">
-              <img
-                src={CoconutJuice}
-                alt="Fruit drink"
-                className=" rounded-2xl"
-              />
-            </div>
+            <img
+              src={CoconutJuice}
+              alt="Fruit drink"
+              className=" rounded-2xl"
+            />
           </div>
         </div>
       </div>

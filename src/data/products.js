@@ -1,4 +1,3 @@
-// src/data/products.js
 import calamansi from "../assets/calamansi-juice.png";
 import mango from "../assets/mango-juice.png";
 import coconut from "../assets/coconut-juice.png";
@@ -10,61 +9,65 @@ export const products = [
   {
     id: 1,
     name: "Calamansi Citrus",
-    price: 6.95,
+    price: 39.99,
     image: calamansi,
-    description: "Fresh green apple juice with a hint of mint",
+    description: "Tangy and refreshing calamansi citrus juice with a hint of natural sweetness",
     rating: 4.8,
-
-    originalPrice: 7.95,
-    category: "popular",
+    originalPrice: 49.99,
+    categories: ["popular", "refresh"],
   },
   {
     id: 2,
     name: "Mango Delight",
-    price: 7.85,
+    price: 39.99,
     image: mango,
-    description: "Blend of kiwi and green grapes",
+    description: "Sweet and luscious mango juice made from premium Carabao mangoes from Davao",
     rating: 4.5,
-    category: "popular",
+    categories: ["popular", "fruit"],
   },
   {
     id: 3,
-    name: "Coconut summer",
-    price: 8.5,
+    name: "Coconut Summer",
+    price: 39.99,
     image: coconut,
-    description: "Premium matcha with almond milk",
+    description: "Pure and hydrating coconut water straight from young green coconuts",
     rating: 4.7,
-    category: "popular",
+    categories: ["popular", "refresh"],
   },
   {
     id: 4,
     name: "Lemon Sunny",
-    price: 5.95,
+    price: 39.99,
     image: lemon,
-    description: "Hydrating cucumber water with lime",
+    description: "Bright and zesty lemon juice blended with cucumber for ultimate refreshment",
     rating: 4.3,
-    category: "healthy",
+    categories: ["refresh", "fruit"],
   },
   {
     id: 5,
     name: "Sweet Potato Smoothie",
-    price: 9.95,
+    price: 39.99,
     image: sweet_potato,
-    description: "Creamy avocado with banana and spinach",
+    description: "Nutritious purple sweet potato smoothie with coconut milk and cinnamon",
     rating: 4.9,
     discount: "15%",
-    originalPrice: 11.95,
-    category: "smoothie",
+    originalPrice: 49.99,
+    categories: ["smoothie"],
   },
   {
     id: 6,
     name: "Banana Boost",
-    price: 6.5,
+    price: 39.99,
     image: banana,
-    description: "Refreshing lime juice with fresh mint",
+    description: "Creamy banana smoothie with a touch of honey and vanilla for natural energy",
     rating: 4.6,
-    category: "popular",
+    categories: ["popular", "fruit"],
   },
 ];
+
+// For backward compatibility - default category is the first in the array
+products.forEach(product => {
+  product.category = product.categories[0];
+});
 
 export default products;
