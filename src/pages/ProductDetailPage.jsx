@@ -12,6 +12,14 @@ const ProductDetailPage = ({ product, onClose }) => {
     onClose();
   };
 
+  const decreaseQuantity = () => {
+    setQuantity((prev) => Math.max(1, prev - 1));
+  };
+
+  const increaseQuantity = () => {
+    setQuantity((prev) => prev + 1);
+  };
+
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-b from-emerald-50 to-white">
       {/* Header */}
@@ -56,7 +64,7 @@ const ProductDetailPage = ({ product, onClose }) => {
           <p className="text-sm text-gray-500">Price</p>
           <div className="flex items-end">
             <span className="text-3xl font-bold text-gray-800">
-              ${product.price}
+              &#8369;{product.price}
             </span>
             {product.originalPrice && (
               <span className="ml-2 text-sm line-through text-gray-400">
@@ -88,7 +96,7 @@ const ProductDetailPage = ({ product, onClose }) => {
         <div className="flex items-center justify-between gap-4">
           <div className="flex items-center bg-gray-100 rounded-full">
             <button
-              onClick={() => setQuantity(Math.max(1, quantity - 1))}
+              onClick={decreaseQuantity}
               className="p-2 rounded-full hover:bg-gray-200 transition-colors"
               aria-label="Decrease quantity"
             >
@@ -96,7 +104,7 @@ const ProductDetailPage = ({ product, onClose }) => {
             </button>
             <span className="px-4 font-medium">{quantity}</span>
             <button
-              onClick={() => setQuantity(quantity + 1)}
+              onClick={increaseQuantity}
               className="p-2 rounded-full hover:bg-gray-200 transition-colors"
               aria-label="Increase quantity"
             >

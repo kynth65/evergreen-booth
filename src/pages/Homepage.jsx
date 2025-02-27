@@ -7,6 +7,7 @@ import ProductDetailPage from "./ProductDetailPage";
 import CartPage from "./CartPage";
 import products from "../data/products";
 import { Search, Star, X } from "lucide-react";
+import HeroBanner from "../components/common/HeroBanner";
 
 const HomePage = () => {
   const [activeTab, setActiveTab] = useState("popular");
@@ -71,24 +72,8 @@ const HomePage = () => {
       <Header activeTab={activeTab} setActiveTab={setActiveTab} />
 
       {/* Hero Banner - Always visible */}
-      <div className="bg-gradient-to-r from-emerald-500 to-teal-600 py-6 px-4">
-        <div className="max-w-5xl mx-auto">
-          <div className="flex flex-col md:flex-row items-center justify-center">
-            <div className="mb-6 md:mb-0 text-center md:text-left">
-              <h2 className="text-white text-2xl md:text-3xl font-bold">
-                Fresh & Organic
-              </h2>
-              <p className="text-emerald-100 mt-2 max-w-md">
-                Start your day with our healthy, refreshing drinks made from
-                100% natural ingredients
-              </p>
-              <button className="mt-4 bg-white text-emerald-700 px-6 py-2 rounded-md w-full font-medium shadow-md hover:shadow-lg transition-all">
-                View Special Offers
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+
+      <HeroBanner />
 
       {/* Search Bar */}
       <div className="bg-white px-4 py-3 border-b border-gray-100 shadow-sm">
@@ -119,6 +104,8 @@ const HomePage = () => {
       {/* Main content */}
       <main className="flex-1 px-4 py-6">
         <div className="max-w-5xl mx-auto">
+          <h1 className="font-bold text-3xl">Menu</h1>
+          <div className="border-b mb-10 mt-2"></div>
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-xl font-bold text-gray-800">
               {getCategoryLabel()}

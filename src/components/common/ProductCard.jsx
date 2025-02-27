@@ -16,11 +16,6 @@ const ProductCard = ({ product, onClick }) => {
         </div>
       )}
 
-      {/* Favorite button */}
-      <button className="absolute top-3 right-3 p-1.5 rounded-full bg-white/80 shadow-sm hover:bg-white transition-colors">
-        <Heart size={18} className="text-gray-400 hover:text-red-500" />
-      </button>
-
       {/* Image container with colored background */}
       <div className="pt-6 px-6 pb-2 bg-gradient-to-b from-emerald-50/50 to-white">
         <img
